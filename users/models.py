@@ -1,7 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -29,9 +28,14 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class User(AbstractBaseUser):
     username = models.CharField(verbose_name='username', max_length=50, unique=True,)
+    profile_img = models.ImageField(blank = True, default="", upload_to="")
+    introduce = models.CharField(max_length = 200, blank = True)
+    favorite = models.CharField(max_length = 100, blank = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -52,13 +56,17 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-    
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, verbose_name=(""), on_delete=models.CASCADE)
-    profile_img = models.ImageField(blank = True, default="", upload_to="")
-    introduce = models.CharField(max_length = 30)
-    favorite = models.CharField(max_length = 30)
+# class User(AbstractBaseUser):
+    # username = models.CharField(max_length = 20, unique=True)
     
-    def __str__(self):
-        return str(self.user)
+    
+    '''
+    profile_img = models.ImageField(blank = True, default="", upload_to="")
+    introduce = models.CharField(max_length = 200, blank = True)
+    favorite = models.CharField(max_length = 100, blank = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    '''
+    
+    # USERNAME_FIELD = 'username'

@@ -1,7 +1,7 @@
 from dataclasses import field
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from users.models import User, Profile
+from users.models import User
 from webtoon.serializers import WebtoonSerializer
 
 
@@ -25,16 +25,23 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    # like_articles = ArticleListSerializer(many=True)
-    # bookmark_set = WebtoonSerializer(many=True)
-    # likes = serializers.StringRelatedField(many = True)
+class UserModifySerializer(serializers.ModelSerializer):
+    bookmark_set = serializers.StringRelatedField(many=True)
+
     class Meta:
-        model = Profile
-        fields = "__all__"
+        model = User
+        fields = ("favorite", "introduce", "profile_img", "bookmark_set",)
+        
+        
+class UserBookmarkSerializer(serializers.ModelSerializer):
+    bookmark_set = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = User
+        fields = ("bookmark_set",)
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+class TokenObtainPairSerializer:
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
