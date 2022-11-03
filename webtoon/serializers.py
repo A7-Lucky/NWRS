@@ -10,10 +10,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 class ReviewCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ("comment",) 
+        fields = ("user", "comment", "my_score", "webtoon")
 
 class WebtoonSerializer(serializers.ModelSerializer):
-    Reviews = ReviewSerializer(many=True)
+    # Reviews = ReviewSerializer(many=True)
+
     class Meta:
         model = Webtoon
         fields = "__all__"

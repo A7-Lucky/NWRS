@@ -28,8 +28,8 @@ class SignupView(APIView):
 
 
 # 프론트 연결 시 SignupView 와 마찬가지로 get 에 대한 고려 필요
-# class CustomTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = CustomTokenObtainPairSerializer
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 # 마이 페이지
