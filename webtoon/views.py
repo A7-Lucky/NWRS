@@ -40,13 +40,13 @@ class ReviewView(APIView):  # 댓글
 class ReviewDetailView(APIView):  
     def get(self, request, review_id):
         review = get_object_or_404(Review, id=review_id)
-        serializer = ReviewSerializer(Review, data=request.data)
+        serializer = ReviewSerializer(review, data=request.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, webtoon_id, review_id):
         review = get_object_or_404(Review, id=review_id)
         if request.user == review.user:
-            serializer = ReviewSerializer(Review, data=request.data)
+            serializer = ReviewSerializer(review, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)

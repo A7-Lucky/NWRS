@@ -1,0 +1,62 @@
+[
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "액션"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "드라마"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "무협/사극"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "스포츠"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "스릴러"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "판타지"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "로맨스"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "일상"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "감성"
+    }
+  },
+  {
+    "model": "webtoon.genre",
+    "fields": {
+      "name": "개그"
+    }
+  }
+]
