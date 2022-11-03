@@ -26,10 +26,10 @@ class Webtoon(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews_user")
     webtoon = models.ForeignKey(Webtoon, on_delete=models.CASCADE, related_name="reviews")
     comment = models.TextField()
-    my_score = models.FloatField(validators=[MinValueValidator(0,5),MaxValueValidator(5.0)]) 
+    my_score = models.FloatField(validators=[MinValueValidator(0,5),MaxValueValidator(5.0)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

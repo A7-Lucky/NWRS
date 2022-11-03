@@ -20,7 +20,6 @@ class SignupView(APIView):
         else:
             return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
 
-# 마이 페이지(유저 프로필, 북마크)
 class MyPageView(APIView):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
