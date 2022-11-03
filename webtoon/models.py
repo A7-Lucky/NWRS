@@ -15,7 +15,7 @@ class Webtoon(models.Model):
     title = models.CharField(max_length=50, default="")
     day = models.CharField(max_length=50, default="")
     genre = models.ManyToManyField(Genre, related_name="genre_set")
-    story = models.TextField(max_length=200, default="")
+    story = models.TextField(max_length=500, default="")
     # field_name = models.URLField(max_length=200, **options) / options link [ https://www.geeksforgeeks.org/urlfield-django-models/#field-options ]
     webtoon_url = models.URLField(max_length=300, default="")  # a href = "webtoon_url"
     thumbnail_url = models.URLField(max_length=300, default="")  # img src = "thumbnail_url"
