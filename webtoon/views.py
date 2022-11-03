@@ -8,16 +8,16 @@ from webtoon.serializers import WebtoonSerializer, ReviewSerializer, ReviewCreat
 
 #  추가작업 필요
 class WebtoonView(APIView):
-    def get(self, request):  # 전체 웹툰 무작위 정렬 보여주기
-        # webtoons = Webtoon.objects.filter.order_by('?')[:10]
-        webtoons = Webtoon.objects.all()
+    def get(self, request):
+        # 전체 웹툰 무작위 정렬 보여주기
+        webtoons = Webtoon.objects.order_by('?')[:10]
         serializer = WebtoonSerializer(webtoons, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):    # 테스트용 코드
         serializer = WebtoonSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save()
             return Response(serializer.data, status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
