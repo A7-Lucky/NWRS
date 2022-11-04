@@ -26,15 +26,22 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserModifySerializer(serializers.ModelSerializer):
-    bookmark_set = serializers.StringRelatedField(many=True)
+    # bookmark_set = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
+<<<<<<< Updated upstream
         fields = ("favorite", "introduce", "profile_img", "bookmark_set",)
         
         
+=======
+        fields = ("favorite", "introduce", "profile_img",)
+
+
+>>>>>>> Stashed changes
 class UserBookmarkSerializer(serializers.ModelSerializer):
     bookmark_set = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = User
         fields = ("bookmark_set",)
