@@ -22,7 +22,7 @@ class Webtoon(models.Model):
     bookmark = models.ManyToManyField(User, related_name='bookmark_set', blank=True)
 
     def __str__(self):
-        return str(self.title)
+        return str(f'{self.id} / {self.title}')
 
 
 class Review(models.Model):
@@ -34,4 +34,4 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.comment)
+        return str(f'{self.user} / {self.comment}')
