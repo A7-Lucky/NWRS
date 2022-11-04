@@ -35,7 +35,7 @@ class User(AbstractBaseUser):
     favorite = models.CharField(max_length = 100, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -56,17 +56,3 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-
-# class User(AbstractBaseUser):
-    # username = models.CharField(max_length = 20, unique=True)
-    
-    
-    '''
-    profile_img = models.ImageField(blank = True, default="", upload_to="")
-    introduce = models.CharField(max_length = 200, blank = True)
-    favorite = models.CharField(max_length = 100, blank = True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    '''
-    
-    # USERNAME_FIELD = 'username'

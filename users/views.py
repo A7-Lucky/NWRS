@@ -25,15 +25,15 @@ class MyPageView(APIView):
         user = get_object_or_404(User, id=user_id)
         serializer = UserSerializer(user) 
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def put(self, request, user_id): # 마이페이지 or 프로필 수정 페이지(get, put, delete)
         user = get_object_or_404(User, id=user_id)
         serializer = UserModifySerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    
+
+
 class BookmarkView(APIView):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
