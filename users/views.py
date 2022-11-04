@@ -10,7 +10,6 @@ from rest_framework_simplejwt.views import (
 )
 
 
-
 class SignupView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -20,20 +19,21 @@ class SignupView(APIView):
         else:
             return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class MyPageView(APIView):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
-        serializer = UserSerializer(user) # ProfileSerializer에서 북마크(역참조), 유저 프로필 정보(닉네임, 프사, 관심장르, 소개글) 가져와야함
+        serializer = UserSerializer(user) 
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    def put(self, request, user_id):
+
+    def put(self, request, user_id): # 마이페이지 or 프로필 수정 페이지(get, put, delete)
         user = get_object_or_404(User, id=user_id)
         serializer = UserModifySerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    
+
+
 class BookmarkView(APIView):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)

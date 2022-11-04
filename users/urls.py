@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from django.contrib.auth.models import BaseUserManager
+
 urlpatterns = [
     path('sign-up/', views.SignupView.as_view(), name="signup_view"),
     path('mypage/<int:user_id>/', views.MyPageView.as_view(), name="mypage_view"),

@@ -1,4 +1,3 @@
-from dataclasses import field
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from users.models import User
@@ -38,7 +37,6 @@ class UserBookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("bookmark_set",)
-
 
 
 class TokenObtainPairSerializer:
