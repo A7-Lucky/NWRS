@@ -54,12 +54,6 @@ class MyReviewView(APIView):
         user = request.user
         reviews = user.reviews_user.all()
         serializer = ReviewSerializer(reviews, many=True)
-
-class ReviewDetailView(APIView):  
-    def get(self, request, review_id):
-        review = get_object_or_404(Review, id=review_id)
-        serializer = ReviewSerializer(review, data=request.data)
-
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

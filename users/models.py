@@ -8,7 +8,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an username')
 
         user = self.model(
-            username=username
+            username=self.username
             )
 
         # user = self.model(
@@ -35,7 +35,7 @@ class User(AbstractBaseUser):
     favorite = models.CharField(max_length = 100, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

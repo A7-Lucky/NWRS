@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
-        
+
     def create(self, validated_data):
         user = super().create(validated_data)
         password = user.password
@@ -31,8 +31,8 @@ class UserModifySerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("favorite", "introduce", "profile_img", "bookmark_set",)
-        
-        
+
+
 class UserBookmarkSerializer(serializers.ModelSerializer):
     bookmark_set = serializers.StringRelatedField(many=True)
     class Meta:
