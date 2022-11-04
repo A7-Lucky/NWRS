@@ -4,13 +4,11 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from django.contrib.auth.models import BaseUserManager
+
 urlpatterns = [
     path('sign-up/', views.SignupView.as_view(), name="signup_view"),
     path('mypage/<int:user_id>/', views.MyPageView.as_view(), name="mypage_view"),
     path('mypage/bookmark/<int:user_id>/', views.BookmarkView.as_view(), name="bookmark_view"),
-
-    # path('profile/<int:user_id>/', views.ProfileView.as_view(), name='profileView'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

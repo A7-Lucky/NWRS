@@ -3,17 +3,28 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from webtoon.models import Webtoon, Review
+from users.models import User
 from webtoon.serializers import WebtoonSerializer, ReviewSerializer, ReviewCreateSerializer
 
-#  추가작업 필요
+# 웹툰 리스트
 class WebtoonView(APIView):
-    def get(self, request):  # 전체 웹툰 무작위 정렬 보여주기
-        webtoons = Webtoon.objects.filter.order_by('?')[:10]
+    def get(self, request):
+        # 전체 웹툰 무작위 정렬 보여주기
+        webtoons = Webtoon.objects.order_by('?')[:10]
         serializer = WebtoonSerializer(webtoons, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def post(self, request):  # 테스트용 코드
+        serializer = WebtoonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class WebtoonDetailView(APIView):  # 웹툰 상세 페이지
+
+# 웹툰 상세 페이지
+class WebtoonDetailView(APIView):
     def get(self, request, webtoon_id): 
         # article = Article.objects.get(id=article_id)
         webtoon = get_object_or_404(Webtoon, id=webtoon_id)
@@ -21,13 +32,14 @@ class WebtoonDetailView(APIView):  # 웹툰 상세 페이지
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class ReviewView(APIView):  # 댓글
+# 웹툰 상세 페이지의 전체 리뷰 리스트 및 작성
+class WebtoonReviewView(APIView):
     def get(self, request, webtoon_id):
         webtoon = get_object_or_404(Webtoon, id=webtoon_id)
         reviews = webtoon.reviews.all()
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def post(self, request, webtoon_id):
         serializer = ReviewCreateSerializer(data=request.data)
         if serializer.is_valid():
@@ -37,12 +49,8 @@ class ReviewView(APIView):  # 댓글
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ReviewDetailView(APIView):  
-    def get(self, request, review_id):
-        review = get_object_or_404(Review, id=review_id)
-        serializer = ReviewSerializer(review, data=request.data)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+# 사용자 검증
+class WebtoonReviewDetailView(APIView):
     def put(self, request, webtoon_id, review_id):
         review = get_object_or_404(Review, id=review_id)
         if request.user == review.user:
@@ -56,6 +64,38 @@ class ReviewDetailView(APIView):
             return Response("권한이 없습니다!", status=status.HTTP_403_FORBIDDEN)
 
     def delete(self, request, webtoon_id, review_id):
+        review = get_object_or_404(Review, id=review_id)
+        if request.user == review.user:
+            review.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("권한이 없습니다!", status=status.HTTP_403_FORBIDDEN)
+
+
+# 내가 작성한 리뷰 전체
+class MyReviewView(APIView):
+    def get(self, request):
+        user = request.user
+        reviews = user.reviews_user.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 리뷰 수정/삭제
+class MyReviewDetailView(APIView):
+    def put(self, request, review_id):
+        review = get_object_or_404(Review, id=review_id)
+        if request.user == review.user:
+            serializer = ReviewSerializer(review, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("권한이 없습니다!", status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request, review_id):
         review = get_object_or_404(Review, id=review_id)
         if request.user == review.user:
             review.delete()
