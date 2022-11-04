@@ -31,8 +31,7 @@ class MyPageView(APIView):
         serializer = UserModifySerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BookmarkView(APIView):
     def get(self, request, user_id):
