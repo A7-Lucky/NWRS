@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from webtoon.models import Webtoon, Review
 from users.models import User
 from webtoon.serializers import WebtoonSerializer, ReviewSerializer, ReviewCreateSerializer
+from webtoon.collaborative_filtering import item_based_filtering
 
 # 웹툰 리스트
 class WebtoonView(APIView):
@@ -113,3 +114,17 @@ class BookmarkView(APIView):
         else:
             webtoon.bookmark.add(request.user)
             return Response("북마크 했습니다.", status=status.HTTP_200_OK)
+        
+# 아이템 협업 필터링 리스트 연습중
+class PracticeView(APIView):
+    def get(self, request, webtoon_id):
+        webtoons = []
+        a = get_object_or_404(Webtoon, id=webtoon_id)
+        b = item_based_filtering(a.title)
+        for i in b:
+            c = get_object_or_404(Webtoon, title=i)
+            webtoons.append(c)
+        print(webtoons)
+        serializer = WebtoonSerializer(webtoons, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
