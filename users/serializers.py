@@ -29,7 +29,6 @@ class UserModifySerializer(serializers.ModelSerializer):
         model = User
         fields = ("favorite", "introduce", "profile_img",)
 
-
 class UserBookmarkSerializer(serializers.ModelSerializer):
     bookmark_set = serializers.StringRelatedField(many=True)
 
