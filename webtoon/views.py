@@ -114,8 +114,8 @@ class BookmarkView(APIView):
         else:
             webtoon.bookmark.add(request.user)
             return Response("북마크 했습니다.", status=status.HTTP_200_OK)
-        
-# 아이템 협업 필터링 리스트 연습중
+
+
 class PracticeView(APIView):
     def get(self, request, webtoon_id):
         webtoons = []
@@ -124,7 +124,6 @@ class PracticeView(APIView):
         for i in b:
             c = get_object_or_404(Webtoon, title=i)
             webtoons.append(c)
-        print(webtoons)
+        # print(webtoons)
         serializer = WebtoonSerializer(webtoons, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-        

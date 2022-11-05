@@ -13,13 +13,10 @@ pd.set_option('display.width', 300)
 webtoon_ratings = pd.merge(ratings, webtoons, on='id')
 
 user_title = webtoon_ratings.pivot_table('rating', index='title', columns='userId')
-
 user_title = user_title.fillna(0)
 
 item_based_collab = cosine_similarity(user_title, user_title)
-
 item_based_collab = pd.DataFrame(item_based_collab, index=user_title.index, columns=user_title.index)
-
 
 def item_based_filtering(webtoon):
     webtoon_list = item_based_collab[webtoon].sort_values(ascending=False)[1:21]

@@ -11,5 +11,4 @@ urlpatterns = [
     path('myreview/<int:review_id>/', views.MyReviewDetailView.as_view(), name='my_review_detail_view'),
     path('<int:webtoon_id>/bookmark/', views.BookmarkView.as_view(), name='bookmark_view'),
     path('<int:webtoon_id>/practice/', views.PracticeView.as_view(), name='Webtoon_practice_view'),
-
 ]
