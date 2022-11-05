@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from webtoon.models import Webtoon, Review
+from webtoon.models import Genre, Webtoon, Review
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -21,8 +21,15 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         model = Review
         fields = ("user", "comment", "my_score", "webtoon")
 
+# 장르 표기를 id 대신 name 으로 변경
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ("name",)
+
 class WebtoonSerializer(serializers.ModelSerializer):
     # Reviews = ReviewSerializer(many=True)
+    genre = GenreSerializer(many=True)
 
     class Meta:
         model = Webtoon
