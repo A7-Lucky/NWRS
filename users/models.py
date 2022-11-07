@@ -30,7 +30,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     username = models.CharField(verbose_name='username', max_length=50, unique=True,)
-    profile_img = models.ImageField(blank = True, default="", upload_to="")
+    profile_img = models.ImageField(blank = True, default="", upload_to="", null=True,)
     introduce = models.CharField(max_length = 200, blank = True)
     favorite = models.CharField(max_length = 100, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
