@@ -19,5 +19,5 @@ item_based_collab = cosine_similarity(user_title, user_title)
 item_based_collab = pd.DataFrame(item_based_collab, index=user_title.index, columns=user_title.index)
 
 def item_based_filtering(webtoon):
-    webtoon_list = item_based_collab[webtoon].sort_values(ascending=False)[1:21]
+    webtoon_list = item_based_collab[webtoon].sort_values(ascending=False)[1:6]
     return webtoon_list.index

@@ -17,6 +17,11 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        return obj.user.username
+
     class Meta:
         model = Review
         fields = ("user", "comment", "my_score", "webtoon")
