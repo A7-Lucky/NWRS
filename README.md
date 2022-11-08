@@ -137,3 +137,6 @@ DRF(Django Rest Framework), ML(Machine Learning)을 활용한 네이버 웹툰 �
 
 # 📋 개발 일정
 ![개발일정](https://user-images.githubusercontent.com/113073514/200454275-2cf0fa2a-b3ae-4aff-84e0-de5c97f4e5b3.jpg)
+
+# 시연 영상
+https://www.youtube.com/watch?v=rAbO0dIBcmI
