@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = super().create(validated_data)
         password = user.password
         user.set_password(password)
+        user.is_active = True
         user.save()
         return user
 
@@ -25,15 +26,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserModifySerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = User
         fields = ("favorite", "introduce", "profile_img",)
 
 class UserBookmarkSerializer(serializers.ModelSerializer):
     bookmark_set = serializers.StringRelatedField(many=True)
-    
+
     class Meta:
         model = User
         fields = ("bookmark_set",)
