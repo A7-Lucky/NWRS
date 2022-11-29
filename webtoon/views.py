@@ -117,7 +117,7 @@ class BookmarkView(APIView):
             return Response("북마크 했습니다.", status=status.HTTP_200_OK)
 
 
-class PracticeView(APIView):
+class RecommendView(APIView):
     def get(self, request, webtoon_id):
         webtoons = []
         a = get_object_or_404(Webtoon, id=webtoon_id)
